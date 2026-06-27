@@ -121,65 +121,42 @@
             </div>
           </aside>
 
-          <!-- Booking form -->
-          <div class="card form-card">
+          <!-- Booking: Calendly inline embed -->
+          <div class="card form-card booking-card">
             <h2>Book Your Free Session</h2>
-            <p>Fill in the details below and we'll be in touch shortly.</p>
+            <p>Pick a time that works for you below &mdash; you'll get an instant email confirmation.</p>
 
             <!--
-              NOTE: This static form needs a backend/handler to actually send.
-              Easiest options on Vercel: a form service like Formspree/Basin
-              (set action="https://formspree.io/f/yourID" method="post"),
-              or replace the whole form with an embedded Calendly widget.
+              Calendly inline widget. To change the event/calendar, edit the data-url below.
+              Tip: in Calendly, add custom questions (e.g. "Company", "Your role",
+              "What AI challenge are you facing?") so you capture the same info the old form did.
+              To send bookings into GHL, connect Calendly -> GoHighLevel (native integration or Zapier).
             -->
-            <form class="form" action="#" method="post" novalidate>
-              <div class="row">
-                <div class="field">
-                  <label for="firstName">First Name</label>
-                  <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Jane" required>
-                </div>
-                <div class="field">
-                  <label for="lastName">Last Name</label>
-                  <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder="Smith" required>
-                </div>
-              </div>
+            <div class="calendly-inline-widget"
+                 data-url="https://calendly.com/hello-theaimapper?hide_gdpr_banner=1"
+                 style="min-width:300px;height:680px;"
+                 role="region" aria-label="Schedule a session with AIMapper"></div>
+            <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+            <noscript>
+              <p>To book a session, email <a href="mailto:hello@theaimapper.com">hello@theaimapper.com</a>
+              or visit <a href="https://calendly.com/hello-theaimapper">our scheduling page</a>.</p>
+            </noscript>
 
-              <div class="field">
-                <label for="email">Work Email</label>
-                <input type="email" id="email" name="email" autocomplete="email" placeholder="jane@company.com" required>
-              </div>
-
-              <div class="row">
-                <div class="field">
-                  <label for="company">Company</label>
-                  <input type="text" id="company" name="company" autocomplete="organization" placeholder="Acme Corp">
-                </div>
-                <div class="field">
-                  <label for="role">Your Role</label>
-                  <input type="text" id="role" name="role" autocomplete="organization-title" placeholder="CTO / VP Operations">
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="service">Service of Interest</label>
-                <select id="service" name="service">
-                  <option value="" selected>Select a service...</option>
-                  <option value="ai-audit">AI Audit &amp; Assessment</option>
-                  <option value="scale-automate">Scale &amp; Automate</option>
-                  <option value="custom">Custom AI Solutions</option>
-                  <option value="not-sure">Not sure yet</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="challenge">Tell Us About Your Challenge</label>
-                <textarea id="challenge" name="challenge" placeholder="What AI challenges are you facing?"></textarea>
-              </div>
-
-              <button class="btn btn--primary" type="submit">Schedule My Free Strategy Session <span class="arrow" aria-hidden="true">&rarr;</span></button>
-              <p class="privacy">No spam. No obligation. We respect your privacy.</p>
-            </form>
+            <p class="privacy">No spam. No obligation. We respect your privacy.</p>
           </div>
+
+          <!--
+            OPTIONAL — GHL contact form for people who'd rather send a message than book.
+            When you have your GoHighLevel form embed code (GHL > Sites > Forms > Integrate),
+            paste the <iframe ...> here and uncomment. Style the form dark inside GHL to match.
+
+            <div class="card form-card" style="margin-top:1.5rem">
+              <h2>Prefer to send a message?</h2>
+              <p>Tell us about your challenge and we'll be in touch.</p>
+              PASTE GHL FORM IFRAME HERE
+            </div>
+          -->
+
 
         </div>
       </div>
