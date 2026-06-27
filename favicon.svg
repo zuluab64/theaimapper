@@ -1,0 +1,5 @@
+<!-- Placeholder favicon: gold square + lightning bolt. Replace with final brand mark if desired. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AIMapper">
+  <rect width="64" height="64" rx="14" fill="#F5B40E"/>
+  <path d="M35 10 18 36h11l-3 18 20-28H34l1-16z" fill="#1a1300"/>
+</svg>
