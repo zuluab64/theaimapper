@@ -23,6 +23,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Calendly popup widget assets -->
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -78,7 +81,7 @@
       <div class="container">
         <div class="contact-grid">
 
-          <!-- Aside: value / testimonial / contact info -->
+          <!-- Aside: value props + contact info -->
           <aside class="contact-aside" aria-label="What to expect">
             <div class="card">
               <h3>What You'll Get</h3>
@@ -87,19 +90,6 @@
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>A follow-up summary emailed to you with your 1&ndash;2 high-impact AI opportunities and one practical, actionable takeaway</span></li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>No obligation, no pushy sales tactics &mdash; just a clear sense of what's possible and where we could go next</span></li>
               </ul>
-            </div>
-
-            <div class="card">
-              <div class="stars" aria-label="Rated 5 out of 5" style="margin-bottom:0.75rem">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <blockquote style="margin:0 0 1.25rem;font-style:italic;color:var(--text-muted)">&ldquo;The strategy session alone gave us more clarity than months of internal debates. We hired them on the spot.&rdquo;</blockquote>
-              <div class="testimonial__author" style="border:0;padding:0">
-                <!-- Replace with a real client headshot -->
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%236366F1'/%3E%3Ctext x='50%25' y='54%25' font-family='sans-serif' font-size='18' fill='white' text-anchor='middle' dominant-baseline='middle'%3EJL%3C/text%3E%3C/svg%3E" alt="Jennifer Lau, COO of HealthBridge" width="48" height="48">
-                <div>
-                  <div class="testimonial__name" style="color:var(--text)">Jennifer Lau</div>
-                  <div class="testimonial__role">COO, HealthBridge</div>
-                </div>
-              </div>
             </div>
 
             <div class="card contact-info">
@@ -121,28 +111,25 @@
             </div>
           </aside>
 
-          <!-- Booking: Calendly inline embed -->
+          <!-- Booking: Calendly popup -->
           <div class="card form-card booking-card">
             <h2>Book Your Free Session</h2>
-            <p>Pick a time that works for you below &mdash; you'll get an instant email confirmation.</p>
+            <p>Click below and pick a time that works for you. You'll get an instant email confirmation &mdash; 30 minutes, free, no obligation.</p>
 
             <!--
-              Calendly inline widget. To change the event/calendar, edit the data-url below.
-              Tip: in Calendly, add custom questions (e.g. "Company", "Your role",
-              "What AI challenge are you facing?") so you capture the same info the old form did.
-              To send bookings into GHL, connect Calendly -> GoHighLevel (native integration or Zapier).
+              Calendly popup. To change the event/calendar, edit the URL in js (data-calendly-url below)
+              AND the fallback link. Tip: add custom questions in Calendly (Company, Role, Challenge)
+              to capture lead info. To push bookings into GHL, connect Calendly -> GoHighLevel.
             -->
-            <div class="calendly-inline-widget"
-                 data-url="https://calendly.com/hello-theaimapper?hide_gdpr_banner=1"
-                 style="min-width:300px;height:680px;"
-                 role="region" aria-label="Schedule a session with AIMapper"></div>
-            <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-            <noscript>
-              <p>To book a session, email <a href="mailto:hello@theaimapper.com">hello@theaimapper.com</a>
-              or visit <a href="https://calendly.com/hello-theaimapper">our scheduling page</a>.</p>
-            </noscript>
+            <button type="button" class="btn btn--primary btn--lg" id="calendly-open"
+                    data-calendly-url="https://calendly.com/hello-theaimapper?hide_gdpr_banner=1">
+              Pick a Time <span class="arrow" aria-hidden="true">&rarr;</span>
+            </button>
 
-            <p class="privacy">No spam. No obligation. We respect your privacy.</p>
+            <p class="privacy" style="margin-top:1.25rem">No spam. No obligation. We respect your privacy.</p>
+            <p style="margin:0;color:var(--text-dim);font-size:0.85rem">
+              Trouble with the popup? <a href="https://calendly.com/hello-theaimapper" style="color:var(--gold)">Open the calendar in a new tab</a>.
+            </p>
           </div>
 
           <!--
@@ -209,6 +196,24 @@
       </div>
     </div>
   </footer>
+
+  <!-- Calendly popup: load library + open on button click -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    (function () {
+      var btn = document.getElementById("calendly-open");
+      if (!btn) return;
+      btn.addEventListener("click", function () {
+        var url = btn.getAttribute("data-calendly-url");
+        if (window.Calendly) {
+          window.Calendly.initPopupWidget({ url: url });
+        } else {
+          // Fallback if the Calendly script hasn't loaded (e.g. offline/blocked)
+          window.open(url, "_blank", "noopener");
+        }
+      });
+    })();
+  </script>
 
   <script src="js/script.js" defer></script>
 </body>
