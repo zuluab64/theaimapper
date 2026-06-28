@@ -122,7 +122,8 @@ ul { margin: 0; padding: 0; }
   crops the content; falls back to vh on older browsers. Content taller
   than the viewport simply grows the section, so nothing gets cut off.
 */
-.section--frame {
+.section--frame,
+.frame-group {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -130,6 +131,9 @@ ul { margin: 0; padding: 0; }
   min-height: calc(100svh - 70px);    /* minus the sticky header */
 }
 .section--frame > .container { width: 100%; }
+
+/* Two short sections sharing one framed screen (e.g. M.A.P. + D.R.I.V.E.) */
+.frame-group .section { padding-block: clamp(1.25rem, 3vw, 2.25rem); }
 
 .text-center { text-align: center; }
 
@@ -558,6 +562,24 @@ ul { margin: 0; padding: 0; }
   .pricing-section { min-height: auto; }
 }
 
+/* ---------- Compact AI Audit section (fits one frame) ---------- */
+.audit-section .section-head { margin-bottom: clamp(1.25rem, 3vw, 2rem); }
+.audit-section .section-head h2 { font-size: clamp(1.6rem, 3.6vw, 2.4rem); }
+.audit-section .grid { gap: 1rem; }
+.audit-section .audit-card { padding: 1.25rem 1.35rem; }
+.audit-section .audit-card .card__head { margin-bottom: 0.6rem; }
+.audit-section .audit-card h3 { font-size: 1.15rem; }
+.audit-section .checks { gap: 0.55rem; }
+.audit-section .checks li { font-size: 0.86rem; line-height: 1.4; gap: 0.55rem; }
+.audit-section .checks svg { width: 17px; height: 17px; margin-top: 2px; }
+.audit-section .audit-card .note { margin-top: 0.9rem; padding-top: 0.9rem; font-size: 0.88rem; }
+.audit-section .youll-get { padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
+.audit-section .youll-get h3 { font-size: 1.1rem; margin-bottom: 0.75rem; }
+
+@media (max-height: 820px) and (min-width: 980px) {
+  .audit-section { min-height: auto; }
+}
+
 /* ---------- Contact layout (aside left, form right) ---------- */
 .contact-grid { grid-template-columns: 1fr; }
 @media (min-width: 880px) { .contact-grid { grid-template-columns: 0.85fr 1.15fr; } }
@@ -801,7 +823,8 @@ ul { margin: 0; padding: 0; }
 /* ---------- Tablet (iPad portrait) ---------- */
 @media (min-width: 561px) and (max-width: 899px) {
   /* Sections stay comfortably framed without forcing huge gaps */
-  .section--frame { min-height: auto; padding-block: clamp(3rem, 8vw, 5rem); }
+  .section--frame, .frame-group { min-height: auto; }
+  .section--frame { padding-block: clamp(3rem, 8vw, 5rem); }
 }
 
 /* ---------- Reduced motion ---------- */
