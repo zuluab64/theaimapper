@@ -80,6 +80,27 @@
       <div class="container">
         <div class="contact-grid">
 
+          <!-- Booking: Calendly popup (first in source so it leads on mobile) -->
+          <div class="card form-card booking-card">
+            <h2>Book Your Free Session</h2>
+            <p>Click below and pick a time that works for you. You'll get an instant email confirmation &mdash; 30 minutes, free, no obligation.</p>
+
+            <!--
+              Calendly popup. To change the event/calendar, edit the URL in js (data-calendly-url below)
+              AND the fallback link. Tip: add custom questions in Calendly (Company, Role, Challenge)
+              to capture lead info. To push bookings into GHL, connect Calendly -> GoHighLevel.
+            -->
+            <button type="button" class="btn btn--primary btn--lg" id="calendly-open"
+                    data-calendly-url="https://calendly.com/hello-theaimapper?hide_gdpr_banner=1">
+              Pick a Time <span class="arrow" aria-hidden="true">&rarr;</span>
+            </button>
+
+            <p class="privacy" style="margin-top:1.25rem">No spam. No obligation. We respect your privacy.</p>
+            <p style="margin:0;color:var(--text-dim);font-size:0.85rem">
+              Trouble with the popup? <a href="https://calendly.com/hello-theaimapper" style="color:var(--gold)">Open the calendar in a new tab</a>.
+            </p>
+          </div>
+
           <!-- Aside: value props + contact info -->
           <aside class="contact-aside" aria-label="What to expect">
             <div class="card">
@@ -109,27 +130,6 @@
               </div>
             </div>
           </aside>
-
-          <!-- Booking: Calendly popup -->
-          <div class="card form-card booking-card">
-            <h2>Book Your Free Session</h2>
-            <p>Click below and pick a time that works for you. You'll get an instant email confirmation &mdash; 30 minutes, free, no obligation.</p>
-
-            <!--
-              Calendly popup. To change the event/calendar, edit the URL in js (data-calendly-url below)
-              AND the fallback link. Tip: add custom questions in Calendly (Company, Role, Challenge)
-              to capture lead info. To push bookings into GHL, connect Calendly -> GoHighLevel.
-            -->
-            <button type="button" class="btn btn--primary btn--lg" id="calendly-open"
-                    data-calendly-url="https://calendly.com/hello-theaimapper?hide_gdpr_banner=1">
-              Pick a Time <span class="arrow" aria-hidden="true">&rarr;</span>
-            </button>
-
-            <p class="privacy" style="margin-top:1.25rem">No spam. No obligation. We respect your privacy.</p>
-            <p style="margin:0;color:var(--text-dim);font-size:0.85rem">
-              Trouble with the popup? <a href="https://calendly.com/hello-theaimapper" style="color:var(--gold)">Open the calendar in a new tab</a>.
-            </p>
-          </div>
 
           <!--
             OPTIONAL — GHL contact form for people who'd rather send a message than book.
