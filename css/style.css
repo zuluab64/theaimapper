@@ -450,6 +450,27 @@ ul { margin: 0; padding: 0; }
   font-size: 1.05rem;
 }
 
+/* ---------- Approach intro (The Calm in the Noise) ---------- */
+.calm-prose {
+  text-align: left;
+  max-width: 680px;
+  margin: 1.75rem auto 0;
+}
+.calm-prose p { font-size: clamp(1rem, 1.3vw, 1.1rem); }
+.calm-prose strong { color: var(--text); }
+.calm-punch {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 1.75rem;
+}
+.calm-close {
+  font-weight: 600;
+  color: var(--gold-bright);
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  margin-bottom: 0;
+}
+
 /* ---------- Highlight banner ---------- */
 .banner {
   text-align: center;
