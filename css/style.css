@@ -458,17 +458,27 @@ ul { margin: 0; padding: 0; }
 }
 .calm-prose p { font-size: clamp(1rem, 1.3vw, 1.1rem); }
 .calm-prose strong { color: var(--text); }
+.calm-signoff {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1.6rem;
+  border: 1px solid rgba(245, 180, 14, 0.35);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+}
 .calm-punch {
   font-family: var(--font-head);
-  font-weight: 700;
-  color: var(--text);
-  margin-top: 1.75rem;
+  font-weight: 800;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  color: #ffffff;
+  margin: 0 0 0.5rem;
 }
 .calm-close {
-  font-weight: 600;
-  color: var(--gold-bright);
-  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
-  margin-bottom: 0;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  line-height: 1.15;
+  margin: 0;
 }
 
 /* ---------- Highlight banner ---------- */

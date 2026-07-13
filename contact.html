@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Contact — Schedule Your Free AI Transformation Session | The AIMapper</title>
-  <meta name="description" content="Book a free 30-minute AI strategy session with The AIMapper. No cost, no obligation — get real insights and find your highest-value AI opportunity.">
+  <meta name="description" content="Book a free 15-minute AI strategy session with The AIMapper. No cost, no obligation — get real insights and find your highest-value AI opportunity.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0A0E1A">
   <link rel="canonical" href="https://www.theaimapper.com/contact.html">
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The AIMapper">
   <meta property="og:title" content="Contact — Schedule Your Free AI Transformation Session | The AIMapper">
-  <meta property="og:description" content="30 minutes. No cost. Real insights. Let's find your highest-value AI opportunity.">
+  <meta property="og:description" content="15 minutes. No cost. Real insights. Let's find your highest-value AI opportunity.">
   <meta property="og:url" content="https://www.theaimapper.com/contact.html">
   <meta property="og:image" content="https://www.theaimapper.com/images/og-image.jpg">
 
@@ -69,8 +69,11 @@
     <!-- ===== Page hero ===== -->
     <section class="hero">
       <div class="container hero__inner page-hero">
-        <h1>Schedule Your <span class="gradient-text">AI Transformation Session</span></h1>
-        <p class="lead">30 minutes. No cost. Real insights. Let's find your highest-value AI opportunity.</p>
+        <h1>Before your competitors figure out AI, <span class="gradient-text">know where it fits in your business.</span></h1>
+        <p class="lead">Let's talk for 15 minutes and identify the first practical move worth exploring.</p>
+        <div class="hero__actions">
+          <button type="button" class="btn btn--primary js-calendly" data-calendly-url="https://calendly.com/hello-theaimapper?hide_gdpr_banner=1">Start the AI Conversation <span class="arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
       </div>
     </section>
 
@@ -83,7 +86,7 @@
           <!-- Booking: Calendly popup (first in source so it leads on mobile) -->
           <div class="card form-card booking-card">
             <h2>Book Your Free Session</h2>
-            <p>Click below and pick a time that works for you. You'll get an instant email confirmation &mdash; 30 minutes, free, no obligation.</p>
+            <p>Click below and pick a time that works for you. You'll get an instant email confirmation &mdash; 15 minutes, free, no obligation.</p>
 
             <!--
               Calendly popup. To change the event/calendar, edit the URL in js (data-calendly-url below)
@@ -106,8 +109,7 @@
             <div class="card">
               <h3>What You'll Get</h3>
               <ul class="checks">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>30-minute strategy session &mdash; completely free</span></li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>A follow-up summary emailed to you with your 1&ndash;2 high-impact AI opportunities and one practical, actionable takeaway</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>15-minute conversation</span></li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>No obligation, no pushy sales tactics &mdash; just a clear sense of what's possible and where we could go next</span></li>
               </ul>
             </div>
@@ -199,16 +201,18 @@
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script>
     (function () {
-      var btn = document.getElementById("calendly-open");
-      if (!btn) return;
-      btn.addEventListener("click", function () {
-        var url = btn.getAttribute("data-calendly-url");
-        if (window.Calendly) {
-          window.Calendly.initPopupWidget({ url: url });
-        } else {
-          // Fallback if the Calendly script hasn't loaded (e.g. offline/blocked)
-          window.open(url, "_blank", "noopener");
-        }
+      // Bind every element that carries a Calendly URL (hero CTA + booking card button).
+      var triggers = document.querySelectorAll("[data-calendly-url]");
+      Array.prototype.forEach.call(triggers, function (btn) {
+        btn.addEventListener("click", function () {
+          var url = btn.getAttribute("data-calendly-url");
+          if (window.Calendly) {
+            window.Calendly.initPopupWidget({ url: url });
+          } else {
+            // Fallback if the Calendly script hasn't loaded (e.g. offline/blocked)
+            window.open(url, "_blank", "noopener");
+          }
+        });
       });
     })();
   </script>
