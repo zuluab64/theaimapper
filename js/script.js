@@ -28,3 +28,19 @@
     if (e.key === "Escape") closeMenu();
   });
 })();
+
+/* Cursor-follow spotlight on cards (brand interaction). */
+(function () {
+  "use strict";
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var cards = document.querySelectorAll(".card");
+  Array.prototype.forEach.call(cards, function (card) {
+    card.addEventListener("mousemove", function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+      card.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+    });
+    card.addEventListener("mouseenter", function () { card.style.setProperty("--op", "1"); });
+    card.addEventListener("mouseleave", function () { card.style.setProperty("--op", "0"); });
+  });
+})();

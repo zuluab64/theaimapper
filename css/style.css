@@ -14,8 +14,8 @@
 
   --gold:         #F5B40E;
   --gold-bright:  #FACC15;
-  --indigo:       #6366F1;
-  --indigo-soft:  #8B8DF5;
+  --indigo:       #5B9DDF;   /* Route Blue — secondary accent */
+  --indigo-soft:  #8BBAEA;   /* Route Blue, lighter */
 
   --text:         #F4F6FB;   /* primary text on dark */
   --text-muted:   #9AA4BF;   /* secondary text on dark (AA on dark bg) */
@@ -28,7 +28,7 @@
   --light-border: #E6E9F2;
 
   --gradient-brand: linear-gradient(100deg, var(--gold-bright) 0%, var(--gold) 25%, var(--indigo-soft) 75%, var(--indigo) 100%);
-  --gradient-cta:   linear-gradient(115deg, #4F46E5 0%, #6366F1 55%, #7C3AED 100%);
+  --gradient-cta:   linear-gradient(115deg, #2E6FBF 0%, #5B9DDF 55%, #3E86DE 100%);
 
   --radius:       16px;
   --radius-sm:    10px;
@@ -40,8 +40,9 @@
   --maxw:         1140px;
   --gutter:       clamp(1rem, 4vw, 2rem);
 
-  --font-head: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-head: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
 /* ---------- Reset / base ---------- */
@@ -53,8 +54,9 @@ html {
   scroll-padding-top: 84px; /* keep anchored content clear of the sticky header */
 }
 
-/* Prevent any element from causing sideways scroll on phones/tablets */
-html, body { overflow-x: hidden; }
+/* Prevent any element from causing sideways scroll on phones/tablets
+   (only on <html> so <body> doesn't become a nested scroll container) */
+html { overflow-x: hidden; }
 
 body {
   margin: 0;
@@ -145,8 +147,8 @@ ul { margin: 0; padding: 0; }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--indigo-soft);
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.35);
+  background: rgba(91, 157, 223, 0.12);
+  border: 1px solid rgba(91, 157, 223, 0.35);
   padding: 0.45rem 1rem;
   border-radius: var(--radius-pill);
   margin-bottom: 1.25rem;
@@ -312,7 +314,7 @@ ul { margin: 0; padding: 0; }
   font-weight: 500;
 }
 .nav__mobile a[aria-current="page"] { color: var(--gold); }
-.nav__mobile .btn { width: 100%; justify-content: center; margin-top: 1rem; }
+.nav__mobile .btn { display: inline-flex; width: 100%; justify-content: center; padding: 0.95rem 1.6rem; margin-top: 1rem; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -323,7 +325,7 @@ ul { margin: 0; padding: 0; }
   min-height: 100vh;                  /* fallback */
   min-height: calc(100svh - 70px);    /* fill the screen below the sticky header */
   background:
-    radial-gradient(120% 90% at 50% -10%, rgba(99,102,241,0.18) 0%, transparent 55%),
+    radial-gradient(120% 90% at 50% -10%, rgba(91,157,223,0.18) 0%, transparent 55%),
     linear-gradient(180deg, var(--bg-deep-2) 0%, var(--bg-deep) 100%);
 }
 .hero__inner {
@@ -365,6 +367,8 @@ ul { margin: 0; padding: 0; }
 @media (min-width: 720px)  { .grid--2 { grid-template-columns: repeat(2, 1fr); } }
 
 .card {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(180deg, var(--surface) 0%, rgba(20,27,46,0.6) 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -372,7 +376,18 @@ ul { margin: 0; padding: 0; }
   box-shadow: var(--shadow-card);
   transition: transform 0.18s ease, border-color 0.18s ease;
 }
-.card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.5); }
+.card:hover { transform: translateY(-4px); border-color: rgba(91,157,223,0.5); }
+/* Cursor-follow spotlight */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--op, 0);
+  transition: opacity 0.25s ease;
+  background: radial-gradient(280px at var(--mx, 50%) var(--my, 50%), rgba(91,157,223,0.28), transparent 70%);
+}
+.card > * { position: relative; }
 
 .card__icon {
   display: grid;
@@ -384,8 +399,8 @@ ul { margin: 0; padding: 0; }
   color: #fff;
 }
 .card__icon svg { width: 24px; height: 24px; }
-.card__icon--indigo { background: linear-gradient(135deg, #6366F1, #4338CA); }
-.card__icon--gold   { background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color: #1a1300; }
+.card__icon--indigo { background: linear-gradient(135deg, #5B9DDF, #2E6FBF); box-shadow: 0 6px 22px rgba(91,157,223,0.42); }
+.card__icon--gold   { background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color: #1a1300; box-shadow: 0 6px 22px rgba(245,180,14,0.42); }
 .card h3 { font-size: 1.3rem; }
 .card p { color: var(--text-muted); margin-bottom: 0; }
 
@@ -417,7 +432,7 @@ ul { margin: 0; padding: 0; }
   flex: none;
   color: #fff;
 }
-.letter-badge--indigo { background: linear-gradient(135deg, #6366F1, #4338CA); }
+.letter-badge--indigo { background: linear-gradient(135deg, #5B9DDF, #2E6FBF); }
 .letter-badge--gold   { background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color: #1a1300; }
 
 .card__head {
@@ -641,8 +656,8 @@ ul { margin: 0; padding: 0; }
 .contact-info .info-row:last-child { margin-bottom: 0; }
 .contact-info .info-ico {
   display: grid; place-items: center; width: 38px; height: 38px; flex: none;
-  border-radius: 10px; background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(99,102,241,0.4); color: var(--indigo-soft);
+  border-radius: 10px; background: rgba(91,157,223,0.15);
+  border: 1px solid rgba(91,157,223,0.4); color: var(--indigo-soft);
 }
 .contact-info .info-ico svg { width: 18px; height: 18px; }
 .contact-info .info-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); }
@@ -661,7 +676,7 @@ ul { margin: 0; padding: 0; }
 /* ---------- Philosophy ---------- */
 .philosophy {
   background:
-    radial-gradient(90% 70% at 50% 0%, rgba(99,102,241,0.16) 0%, transparent 60%),
+    radial-gradient(90% 70% at 50% 0%, rgba(91,157,223,0.16) 0%, transparent 60%),
     var(--bg-deep);
   border-block: 1px solid var(--border);
   text-align: center;
@@ -728,13 +743,15 @@ ul { margin: 0; padding: 0; }
 
 /* ---------- CTA band ---------- */
 .cta-band {
-  background: var(--gradient-cta);
+  background:
+    radial-gradient(90% 130% at 50% 0%, rgba(91,157,223,0.16) 0%, transparent 60%),
+    var(--bg-deep);
+  border-block: 1px solid var(--border);
   text-align: center;
   color: #fff;
 }
 .cta-band h2 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); color: #fff; }
-.cta-band p { color: rgba(255,255,255,0.85); max-width: 50ch; margin: 0 auto 2rem; }
-.cta-band .btn--primary { box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+.cta-band p { color: var(--text-muted); max-width: 50ch; margin: 0 auto 2rem; }
 
 /* ---------- Generic content blocks (inner pages) ---------- */
 .prose { max-width: 760px; }
@@ -756,8 +773,8 @@ ul { margin: 0; padding: 0; }
   font-family: var(--font-head);
   font-weight: 800;
   font-size: 1.2rem;
-  background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(99,102,241,0.4);
+  background: rgba(91,157,223,0.15);
+  border: 1px solid rgba(91,157,223,0.4);
   color: var(--indigo-soft);
 }
 .step h3 { margin-top: 0; }
@@ -864,6 +881,58 @@ ul { margin: 0; padding: 0; }
   /* Sections stay comfortably framed without forcing huge gaps */
   .section--frame, .frame-group { min-height: auto; }
   .section--frame { padding-block: clamp(3rem, 8vw, 5rem); }
+}
+
+/* ---------- Animated gradient-ring CTA (primary brand signal) ---------- */
+@keyframes cta-ring-move { from { background-position: 0% 0; } to { background-position: 300% 0; } }
+@keyframes cta-ring-glow {
+  0%, 100% { box-shadow: 0 6px 26px rgba(245,180,14,0.34), 0 0 14px rgba(91,157,223,0.26); }
+  50%      { box-shadow: 0 8px 34px rgba(245,180,14,0.5),  0 0 22px rgba(91,157,223,0.42); }
+}
+.btn--ring {
+  position: relative;
+  isolation: isolate;
+  animation: cta-ring-glow 7s ease-in-out infinite;
+}
+.btn--ring::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  padding: 3px;
+  background-image: repeating-linear-gradient(90deg, var(--gold), var(--gold-bright) 12%, var(--indigo) 25%, var(--gold-bright) 38%, var(--gold) 50%);
+  background-size: 300% 100%;
+  animation: cta-ring-move 9s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  z-index: -1;
+}
+.btn--ring:hover { transform: none; }
+
+/* ---------- Mono framework tag (M.A.P.) ---------- */
+.mono-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  letter-spacing: 0.02em;
+  color: var(--text);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.15rem;
+}
+.mono-tag .gold { color: var(--gold); }
+
+/* ---------- Voice & Tone pills ---------- */
+.voice { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+.voice .pill {
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
 }
 
 /* ---------- Reduced motion ---------- */
