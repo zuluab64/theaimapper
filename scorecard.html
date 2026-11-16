@@ -1,429 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>AI Opportunity Scorecard — Find Where AI Fits Your Business | The AIMapper</title>
-  <meta name="description" content="Find where AI actually fits your business in about two minutes. Rate your work with the M.A.P. method and see your highest-value AI starting point.">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0A0E1A">
-  <link rel="canonical" href="https://www.theaimapper.com/scorecard.html">
-
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="The AIMapper">
-  <meta property="og:title" content="AI Opportunity Scorecard | The AIMapper">
-  <meta property="og:description" content="Score your business in 2 minutes and find your highest-value AI starting point.">
-  <meta property="og:url" content="https://www.theaimapper.com/scorecard.html">
-  <meta property="og:image" content="https://www.theaimapper.com/images/og-image.jpg">
-
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- ===== Scorecard-specific styles (scoped, brand tokens) ===== -->
-  <style>
-    /* M.A.P. mini-cards + scoring guide */
-    .sc-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:0.85rem; margin-top:1.5rem; }
-    @media (max-width:720px){ .sc-steps{ grid-template-columns:1fr; } }
-    .sc-step { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:1.1rem 1.2rem; }
-    .sc-step b { color:var(--gold); font-family:var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; }
-    .sc-step p { color:var(--text-muted); font-size:0.9rem; margin:0.4rem 0 0; }
-    .sc-guide { margin-top:1rem; background:rgba(91,157,223,0.07); border:1px solid var(--border);
-      border-radius:var(--radius-sm); padding:0.85rem 1.1rem; font-size:0.85rem; color:var(--text-muted); }
-    .sc-guide b { color:var(--indigo-soft); }
-    .sc-guide .sep { color:var(--text-dim); margin:0 0.4rem; }
-
-    /* Scoring form */
-    .sc-form { padding:0; overflow:hidden; }
-    .sc-row { display:flex; flex-wrap:wrap; align-items:center; gap:0.9rem 1rem; padding:1rem 1.25rem;
-      border-top:1px solid var(--border); transition:background 0.18s ease, box-shadow 0.18s ease; }
-    .sc-row:first-child { border-top:none; }
-    .sc-row.is-top { background:rgba(245,180,14,0.06); box-shadow:inset 3px 0 0 var(--gold); }
-    .sc-row__main { flex:1 1 15rem; min-width:0; }
-    .sc-row__name { font-weight:600; color:var(--text); }
-    .sc-row__name-input { font-weight:600; color:var(--text); background:transparent; border:none;
-      border-bottom:1px solid var(--border); font-family:inherit; font-size:1rem; width:100%; padding:0.15rem 0; }
-    .sc-row__name-input::placeholder { color:var(--text-dim); font-weight:500; }
-    .sc-row__name-input:focus-visible { outline:none; border-bottom-color:var(--indigo); }
-    .sc-row__desc { color:var(--text-dim); font-size:0.8rem; margin:0.15rem 0 0; }
-
-    .sc-controls { display:flex; align-items:center; gap:0.45rem; font-size:0.9rem; }
-    .sc-select { font:inherit; font-size:0.9rem; color:var(--text); background:var(--surface-2);
-      border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.5rem 1.9rem 0.5rem 0.75rem; appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239AA4BF' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat:no-repeat; background-position:right 0.6rem center; cursor:pointer; }
-    .sc-select:focus-visible { outline:none; border-color:var(--indigo); }
-    .sc-op { color:var(--text-dim); }
-    .sc-score { width:2.2rem; text-align:center; font-family:var(--font-mono); font-weight:500; font-size:1.05rem; color:var(--gold); }
-
-    /* Result */
-    .sc-result { margin-top:2rem; display:none; }
-    .sc-result.show { display:block; }
-    .sc-start { background:linear-gradient(180deg,var(--bg-deep-2),#0b1120); border:1px solid var(--border2, var(--border));
-      border-radius:var(--radius); padding:1.75rem 1.5rem; text-align:center; box-shadow:0 0 50px rgba(91,157,223,0.08) inset; }
-    .sc-start .eyebrow { margin-bottom:0.6rem; }
-    .sc-start h2 { font-size:clamp(1.5rem,4vw,2rem); margin:0; }
-    .sc-tier { margin:0.6rem 0 0; color:var(--text-muted); font-size:0.98rem; }
-    .sc-tier .mono { font-family:var(--font-mono); color:var(--gold); font-size:0.85rem; }
-
-    .sc-outcome { margin-top:1.5rem; background:var(--surface); border:1px solid var(--border);
-      border-left:3px solid var(--gold); border-radius:var(--radius-sm); padding:1.25rem 1.4rem; }
-    .sc-outcome label { display:block; font-weight:600; color:var(--text); }
-    .sc-outcome textarea { margin-top:0.6rem; width:100%; font:inherit; font-size:0.92rem; color:var(--text);
-      background:var(--bg-deep-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.7rem 0.9rem; resize:vertical; min-height:3.4rem; }
-    .sc-outcome textarea:focus-visible { outline:none; border-color:var(--indigo); }
-
-    .sc-gate { margin-top:1.5rem; }
-    .sc-gate h3 { font-size:1.2rem; margin-bottom:0.25rem; }
-    .sc-gate > p { color:var(--text-muted); font-size:0.92rem; margin-bottom:1rem; }
-    .sc-capture { display:flex; gap:0.6rem; }
-    @media (max-width:540px){ .sc-capture{ flex-direction:column; } }
-    .sc-capture input[type=email] { flex:1; background:var(--bg-deep-2); border:1px solid var(--border);
-      border-radius:var(--radius-sm); color:var(--text); font:inherit; font-size:0.95rem; padding:0.8rem 1rem; }
-    .sc-capture input[type=email]::placeholder { color:var(--text-dim); }
-    .sc-capture input[type=email]:focus-visible { outline:none; border-color:var(--indigo); }
-    .sc-capture .btn { white-space:nowrap; }
-    .sc-msg { min-height:1.2em; font-size:0.88rem; margin:0.75rem 0 0; }
-    .sc-msg.is-ok { color:var(--indigo-soft); }
-    .sc-msg.is-err { color:#F0708A; }
-    .sc-gate__alt { color:var(--text-dim); font-size:0.83rem; margin:0.9rem 0 0; }
-    .sc-gate__alt a { color:var(--gold); }
-
-    .sc-cta { margin-top:1.5rem; text-align:center; border-top:1px solid var(--border); padding-top:1.75rem; }
-    .sc-cta h3 { font-size:1.2rem; margin-bottom:0.35rem; }
-    .sc-cta p { color:var(--text-muted); max-width:52ch; margin:0 auto 1.25rem; font-size:0.94rem; }
-    .sc-cta .fine { color:var(--text-dim); font-size:0.8rem; margin:0.9rem 0 0; }
-
-    @media (prefers-reduced-motion:reduce){ .sc-row{ transition:none; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Can AI Automate in Your Business? Free 2-Minute Scorecard - The AIMapper</title>
+<meta name="description" content="What can AI automate in your business, and where would it save the most time? Rate your day-to-day work and see your best starting point in about two minutes.">
+<link rel="canonical" href="https://www.theaimapper.com/scorecard.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="What Can AI Automate in Your Business? Free 2-Minute Scorecard - The AIMapper">
+<meta property="og:description" content="What can AI automate in your business, and where would it save the most time? Rate your day-to-day work and see your best starting point in about two minutes.">
+<meta property="og:url" content="https://www.theaimapper.com/scorecard.html">
+<meta property="og:site_name" content="The AIMapper">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.theaimapper.com/images/og-the-aimapper.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The AIMapper - Not sure where to start with AI in your business?">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Can AI Automate in Your Business? Free 2-Minute Scorecard - The AIMapper">
+<meta name="twitter:description" content="What can AI automate in your business, and where would it save the most time? Rate your day-to-day work and see your best starting point in about two minutes.">
+<meta name="twitter:image" content="https://www.theaimapper.com/images/og-the-aimapper.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="images/monet-seine-mist.webp" as="image" type="image/webp">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">The AIMapper</a>
+  <button class="menu-btn mono" type="button" aria-expanded="false" aria-controls="nav"><span class="bars" aria-hidden="true"></span>Menu</button>
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="nav-links"><a class="mono only-menu" href="index.html">Home</a><a class="mono" href="approach.html">Our Approach</a><a class="mono" href="services.html">Services &amp; Pricing</a><a class="mono" href="client-stories.html">Client Stories</a><a class="mono" href="about.html">About</a><a class="mono only-menu" href="scorecard.html" aria-current="page">Free Scorecard</a><a class="mono only-menu" href="contact.html">Contact</a></div>
+    <div class="nav-cta"><a class="btn btn-sm btn-line" href="scorecard.html">Take the free Scorecard</a><a class="btn btn-sm btn-fill" href="contact.html#book">Book a free 20-minute call</a></div>
+  </nav>
+</div></header>
+<main id="main">
+<section class="hero hero--art" style="--art:var(--mist)"><div class="wrap">
+  <h1>What can AI automate in your business?</h1>
+  <p class="lead-serif">Rate your day-to-day work and in about two minutes you'll see where AI can save you the most time first. You don't need to sign up to start.</p>
+</div></section>
 
-  <!-- ===== Header / navigation ===== -->
-  <header class="site-header">
-    <div class="container">
-      <nav class="nav" aria-label="Primary">
-        <a class="brand" href="index.html" aria-label="The AIMapper home">
-          <span class="brand__mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-2 8 10-13h-6l1-7z"/></svg>
-          </span>
-          <span>The AI<b>Mapper</b></span>
-        </a>
-        <ul class="nav__links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="approach.html">Our Approach</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="scorecard.html" aria-current="page">Free Scorecard</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div class="nav__actions">
-          <a class="btn btn--primary btn--sm nav__cta" href="contact.html#book">Get Started</a>
-          <button class="nav__toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </nav>
-    </div>
-    <div class="nav__mobile" id="mobile-menu">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="approach.html">Our Approach</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="scorecard.html" aria-current="page">Free Scorecard</a></li>
-        <li><a href="contact.html">Contact</a></li>
+<section class="band band--deep" style="border-top:0"><div class="wrap">
+  <div class="head"><h2>How the scorecard works</h2><p class="lead">For each area of your business, answer two questions.</p></div>
+  <div class="grid g2">
+    <div class="cell"><h3>Time: how much of the week does it eat?</h3><p class="scale">1 = a little · 2 = a fair bit · 3 = it's a drain</p></div>
+    <div class="cell"><h3>Repeat: how repetitive is the work?</h3><p class="scale">1 = varied · 2 = somewhat · 3 = same thing daily</p></div>
+  </div>
+  <p class="lead-serif formula">Your score for each area is Time × Repeat, out of 9. The highest score is your best place to start.</p>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <div class="head"><h2>Score your business areas</h2></div>
+  <form id="scorecard" class="sc" aria-label="Score your business areas">
+    <noscript><ol class="ruled"><li>Customer questions &amp; support</li><li>Admin, data entry &amp; paperwork</li><li>Marketing &amp; content</li><li>Scheduling &amp; bookings</li><li>Reporting &amp; spreadsheets</li><li>Sales follow-up &amp; quotes</li><li>Invoicing &amp; finance</li><li>Other (name your own)</li></ol></noscript>
+  </form>
+</div></section>
+
+<section class="band band--tight"><div class="wrap">
+  <div class="head"><h2>Your result</h2></div>
+  <div class="result" aria-live="polite">
+    <div><p class="top-area is-empty" id="topArea">&ndash;</p><p class="top-score" id="topScore"></p></div>
+    <div>
+      <ul class="tiers" id="tiers">
+        <li><b>7 to 9: Prime target.</b> Fast, high return. Start here.</li>
+        <li><b>4 to 6: Strong candidate.</b> Worth a closer look.</li>
+        <li><b>1 to 3: Lower priority for now.</b> Revisit later.</li>
       </ul>
-      <div class="container"><a class="btn btn--primary" href="contact.html#book">Get Started</a></div>
+      <label class="field" for="outcome"><span><b>One more question:</b> What would change if this ran 80% on autopilot?</span><textarea id="outcome" rows="3"></textarea></label>
     </div>
-  </header>
+  </div>
+</div></section>
 
-  <main id="main">
+<section class="band band--deep"><div class="wrap split">
+  <h2>Get your results as a one-page PDF</h2>
+  <div>
+    <p class="lead">Enter your email and we'll send your scorecard plus two quick wins for your top area.</p>
+    <form id="scForm" class="capture" novalidate>
+      <label class="vh" for="email">Your email address</label>
+      <input id="email" name="email" type="email" autocomplete="email" required>
+      <button id="sendBtn" type="submit" class="btn btn-fill">Email me my results</button>
+      <input type="hidden" name="top_area" value=""><input type="hidden" name="tier" value=""><input type="hidden" name="scores" value=""><input type="hidden" name="goal" value="">
+      <input type="hidden" name="_subject" value="New AI Scorecard lead">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="vh">
+    </form>
+    <p class="msg" id="sendMsg" role="status" aria-live="polite"></p>
+    <p class="alt">Prefer no email? <a href="AI-Opportunity-Scorecard.pdf" download>Download the blank printable PDF</a></p>
+  </div>
+</div></section>
 
-    <!-- ===== Page hero ===== -->
-    <section class="hero">
-      <div class="container hero__inner page-hero">
-        <p class="eyebrow">Free tool <span class="dot">·</span> about 2 minutes</p>
-        <h1>Where does AI <span class="gradient-text">actually fit your business?</span></h1>
-        <p class="lead">Most AI advice is noise. Rate your day-to-day work below and see the one area where AI is most likely to pay off first &mdash; in about two minutes, no jargon.</p>
-      </div>
-    </section>
-
-    <!-- ===== How it works (M.A.P.) + scoring guide ===== -->
-    <section class="section" style="padding-block-start:0" aria-labelledby="how-heading">
-      <div class="container">
-        <h2 id="how-heading" style="font-size:clamp(1.4rem,3vw,1.9rem)">How the scorecard works</h2>
-        <div class="sc-steps">
-          <div class="sc-step"><b>M — MEASURE</b><p>How much time does each area eat each week?</p></div>
-          <div class="sc-step"><b>A — ANALYZE</b><p>How repetitive &amp; rule-based is the work?</p></div>
-          <div class="sc-step"><b>P — PRESCRIBE</b><p>Highest score = your best place to start.</p></div>
-        </div>
-        <p class="sc-guide">
-          <b>TIME:</b> 1 = a little · 2 = a fair bit · 3 = it's a drain
-          <span class="sep">|</span>
-          <b>REPEAT:</b> 1 = varied · 2 = somewhat · 3 = same thing daily.
-          &nbsp;Score = Time &times; Repeat.
-        </p>
-      </div>
-    </section>
-
-    <!-- ===== The tool ===== -->
-    <section class="section" style="padding-block-start:0" aria-labelledby="tool-heading">
-      <div class="container">
-        <h2 id="tool-heading" style="position:absolute;left:-9999px">Score your business areas</h2>
-
-        <form id="scorecard" class="card sc-form" aria-label="AI Opportunity Scorecard">
-          <!-- Rows injected by JS -->
-          <noscript><p style="padding:1.25rem">This scorecard needs JavaScript to calculate your score. You can still <a href="contact.html#book" style="color:var(--gold)">book a free 20-minute session</a> and we'll walk through it together.</p></noscript>
-        </form>
-
-        <!-- ===== Result ===== -->
-        <div id="result" class="sc-result" aria-live="polite">
-
-          <div class="sc-start">
-            <p class="eyebrow">Start here</p>
-            <h2 id="topArea">&mdash;</h2>
-            <p class="sc-tier" id="topTier"></p>
-          </div>
-
-          <!-- Imagine the outcome -->
-          <div class="sc-outcome">
-            <label for="outcome">What would change if this ran 80% on autopilot?</label>
-            <textarea id="outcome" rows="2" placeholder="e.g. reclaim 6 hrs/week, faster replies, fewer errors…"></textarea>
-          </div>
-
-          <!-- Email gate — Formspree (no backend code required) -->
-          <div class="card sc-gate">
-            <h3>Get your results as a one-page PDF</h3>
-            <p>Enter your email and I'll send your scorecard plus two quick wins for your top area. No spam, unsubscribe anytime.</p>
-
-            <!-- ================================================================
-                 EMAIL CAPTURE via Formspree — free, no backend code, stays static.
-                 SETUP (about 2 minutes, one-time):
-                   1. Go to https://formspree.io and sign up (free).
-                   2. Create a new form; it gives you an endpoint URL like
-                      https://formspree.io/f/abcdwxyz
-                   3. Paste that URL into FORMSPREE_ENDPOINT in the script at the
-                      bottom of this file. Done — submissions arrive by email AND
-                      in your Formspree dashboard (export to CSV anytime).
-                 The hidden fields below travel with each lead, so you also get
-                 their top area, tier, all scores, and their goal.
-                 (Swappable: Formspark, Basin, or Getform use the same pattern.)
-            ================================================================= -->
-            <form id="scForm" class="sc-capture" novalidate>
-              <label for="email" style="position:absolute;left:-9999px">Your email address</label>
-              <input id="email" name="email" type="email" placeholder="you@yourbusiness.com" autocomplete="email" required>
-              <button id="sendBtn" type="submit" class="btn btn--primary">Email me my results <span class="arrow" aria-hidden="true">&rarr;</span></button>
-              <!-- Context sent with each lead (auto-filled before submit) -->
-              <input type="hidden" name="top_area" value="">
-              <input type="hidden" name="tier" value="">
-              <input type="hidden" name="scores" value="">
-              <input type="hidden" name="goal" value="">
-              <input type="hidden" name="_subject" value="New AI Scorecard lead">
-              <!-- Honeypot: bots fill this; humans never see it -->
-              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-            </form>
-            <p class="sc-msg" id="sendMsg" role="status" aria-live="polite"></p>
-            <p class="sc-gate__alt">Prefer no email? <a href="AI-Opportunity-Scorecard.pdf" download>Download the blank printable PDF</a>.</p>
-          </div>
-
-          <!-- CTA -->
-          <div class="sc-cta">
-            <h3>Not sure your top score is the right first move?</h3>
-            <p>Book a free 20-minute session to pressure-test your result. I'll tell you honestly if AI fits &mdash; or if it doesn't yet.</p>
-            <a class="btn btn--primary" href="contact.html#book">Book my free 20-min session <span class="arrow" aria-hidden="true">&rarr;</span></a>
-            <p class="fine">No pitch · No obligation · No jargon</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer__grid">
-        <div class="footer__brand">
-          <a class="brand" href="index.html" aria-label="The AIMapper home">
-            <span class="brand__mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-2 8 10-13h-6l1-7z"/></svg>
-            </span>
-            <span>The AI<b>Mapper</b></span>
-          </a>
-          <p>Strategy-led AI implementation that drives real business value.</p>
-          <div class="footer__social">
-            <a href="https://www.linkedin.com/in/belindatheaimapper" target="_blank" rel="noopener" aria-label="Belinda on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2 3.77-2 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4z"/></svg></a>
-            <a href="mailto:hello@theaimapper.com" aria-label="Email The AIMapper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a>
-          </div>
-        </div>
-        <div class="footer__links">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="index.html#diff-heading">Change Management</a></li>
-            <li><a href="approach.html">Our Approach</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-          </ul>
-        </div>
-        <div class="footer__links">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="approach.html">Our Approach</a></li>
-            <li><a href="scorecard.html">AI Scorecard</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer__links">
-          <h4>Get In Touch</h4>
-          <p style="color:var(--text-muted)">Ready to build your AI roadmap?</p>
-          <a class="btn btn--primary btn--sm" href="contact.html">Schedule a Session</a>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <span>&copy; 2026 The AIMapper. All rights reserved.</span>
-        <span>Strategy-led AI implementation</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ===== Scorecard logic ===== -->
-  <script>
-    (function () {
-      var AREAS = [
-        { name:"Customer questions & support", desc:"FAQs, emails, chats, tickets" },
-        { name:"Admin, data entry & paperwork", desc:"forms, records, copy-paste between systems" },
-        { name:"Marketing & content", desc:"posts, emails, blogs, captions" },
-        { name:"Scheduling & bookings", desc:"calendar, reminders, no-shows" },
-        { name:"Reporting & spreadsheets", desc:"pulling numbers, dashboards" },
-        { name:"Sales follow-up & quotes", desc:"chasing leads, proposals" },
-        { name:"Invoicing & finance", desc:"billing, reconciliation, chasing payment" },
-        { name:"Other", desc:"your own area", custom:true }
-      ];
-
-      var form = document.getElementById("scorecard");
-      if (!form) return;
-
-      function selectHtml(kind) {
-        var label = kind === "time" ? "Time" : "Repeat";
-        return '<label class="sr-only" style="position:absolute;left:-9999px">' + label + '</label>' +
-          '<select class="sc-select" data-type="' + kind + '">' +
-            '<option value="0">' + label + '</option><option>1</option><option>2</option><option>3</option>' +
-          '</select>';
-      }
-
-      AREAS.forEach(function (a, i) {
-        var row = document.createElement("div");
-        row.className = "sc-row";
-        row.dataset.index = i;
-        var main = a.custom
-          ? '<input type="text" class="sc-row__name-input" placeholder="Other: name your area" data-name="' + i + '">'
-          : '<p class="sc-row__name">' + a.name + '</p>';
-        row.innerHTML =
-          '<div class="sc-row__main">' + main + '<p class="sc-row__desc">' + a.desc + '</p></div>' +
-          '<div class="sc-controls">' +
-            selectHtml("time") +
-            '<span class="sc-op" aria-hidden="true">&times;</span>' +
-            selectHtml("repeat") +
-            '<span class="sc-op" aria-hidden="true">=</span>' +
-            '<span class="sc-score" data-score aria-live="polite">&ndash;</span>' +
-          '</div>';
-        form.appendChild(row);
-      });
-
-      function tier(score) {
-        if (score >= 7) return "Prime target — fast, high-ROI. Start here.";
-        if (score >= 4) return "Strong candidate — worth a closer look.";
-        return "Lower priority for now — revisit later.";
-      }
-
-      var result = document.getElementById("result");
-
-      function rowName(row) {
-        var input = row.querySelector("[data-name]");
-        if (input) return input.value.trim() || "Your area";
-        return AREAS[row.dataset.index].name;
-      }
-
-      function recalc() {
-        var top = { score: -1, name: "", row: null };
-        form.querySelectorAll("[data-index]").forEach(function (row) {
-          var t = +row.querySelector('[data-type=time]').value;
-          var r = +row.querySelector('[data-type=repeat]').value;
-          var score = (t && r) ? t * r : 0;
-          row.querySelector("[data-score]").textContent = score || "–";
-          row.classList.remove("is-top");
-          if (score > top.score) { top = { score: score, name: rowName(row), row: row }; }
-        });
-        if (top.score > 0) {
-          top.row.classList.add("is-top");
-          document.getElementById("topArea").textContent = top.name;
-          document.getElementById("topTier").innerHTML =
-            '<span class="mono">Score ' + top.score + '/9</span> &mdash; ' + tier(top.score);
-          result.classList.add("show");
-        }
-      }
-      form.addEventListener("change", recalc);
-      form.addEventListener("input", recalc);
-
-      // ---- Email capture (Formspree) ----
-      // Paste your Formspree endpoint here (https://formspree.io — free, ~2 min setup).
-      var FORMSPREE_ENDPOINT = "https://formspree.io/f/mrpglbov";
-
-      var scForm = document.getElementById("scForm");
-      var sendMsg = document.getElementById("sendMsg");
-      if (scForm) {
-        scForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          var emailEl = document.getElementById("email");
-          var email = (emailEl.value || "").trim();
-          if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-            sendMsg.textContent = "Please enter a valid email address.";
-            sendMsg.className = "sc-msg is-err";
-            emailEl.focus();
-            return;
-          }
-          // Fill hidden context from the current scores.
-          var scoreLine = [].map.call(form.querySelectorAll("[data-index]"), function (row) {
-            var t = +row.querySelector('[data-type=time]').value;
-            var r = +row.querySelector('[data-type=repeat]').value;
-            return rowName(row) + ": " + ((t && r) ? t * r : 0) + "/9";
-          }).join(" · ");
-          scForm.querySelector('[name=top_area]').value = document.getElementById("topArea").textContent;
-          scForm.querySelector('[name=tier]').value = document.getElementById("topTier").textContent;
-          scForm.querySelector('[name=scores]').value = scoreLine;
-          scForm.querySelector('[name=goal]').value = document.getElementById("outcome").value;
-
-          if (FORMSPREE_ENDPOINT.indexOf("YOUR_FORM_ID") !== -1) {
-            sendMsg.textContent = "Almost there — add your Formspree endpoint to start collecting emails (see the note in this file).";
-            sendMsg.className = "sc-msg is-err";
-            return;
-          }
-
-          var btn = document.getElementById("sendBtn");
-          btn.disabled = true;
-          sendMsg.textContent = "Sending…";
-          sendMsg.className = "sc-msg";
-          fetch(FORMSPREE_ENDPOINT, {
-            method: "POST",
-            body: new FormData(scForm),
-            headers: { "Accept": "application/json" }
-          }).then(function (res) {
-            if (!res.ok) throw new Error("bad status");
-            sendMsg.textContent = "✓ Sent! Check your inbox for your scorecard.";
-            sendMsg.className = "sc-msg is-ok";
-            scForm.reset();
-          }).catch(function () {
-            sendMsg.innerHTML = "Couldn't send just now — <a href=\"AI-Opportunity-Scorecard.pdf\" download style=\"color:var(--gold)\">download the PDF</a> or email hello@theaimapper.com.";
-            sendMsg.className = "sc-msg is-err";
-          }).then(function () { btn.disabled = false; });
-        });
-      }
-    })();
-  </script>
-
-  <script src="js/script.js" defer></script>
+<section class="band band--thistles on-dark"><div class="wrap split">
+  <h2>Not sure your top score is the right first move?</h2>
+  <div>
+    <p class="lead">Book a free 20-minute call and I'll go through your result with you. I'll tell you if AI fits, or if it doesn't yet.</p>
+    <div class="actions"><a class="btn btn-fill" href="contact.html#book">Book a free 20-minute call</a></div>
+  </div>
+</div></section>
+</main>
+<footer class="foot on-dark"><div class="wrap">
+  <div>
+    <a class="brand" href="index.html">The AIMapper</a>
+    <address>Evergreen, CO<br><a href="mailto:hello@theaimapper.com">hello@theaimapper.com</a><br><a href="https://www.linkedin.com/in/belindatheaimapper" rel="noopener">LinkedIn</a></address>
+  </div>
+  <nav aria-label="Footer"><a class="mono" href="index.html">Home</a><a class="mono" href="approach.html">Our Approach</a><a class="mono" href="services.html">Services &amp; Pricing</a><a class="mono" href="client-stories.html">Client Stories</a><a class="mono" href="about.html">About</a><a class="mono" href="scorecard.html">Free Scorecard</a><a class="mono" href="contact.html">Contact</a></nav>
+  <p class="credit">Paintings: <a class="art" href="images/monet-seine-mist.jpg" target="_blank" rel="noopener">Claude Monet, Branch of the Seine near Giverny (Mist), 1897<img class="peek" src="images/thumb-monet-seine-mist.webp" alt="" loading="lazy" width="520" height="504"></a>.<br><a class="art" href="images/monet-water-lilies.jpg" target="_blank" rel="noopener">Claude Monet, Water Lilies, 1906<img class="peek" src="images/thumb-monet-water-lilies.webp" alt="" loading="lazy" width="520" height="499"></a>.<br><a class="art" href="images/sargent-thistles.jpg" target="_blank" rel="noopener">John Singer Sargent, Thistles, 1883-89<img class="peek" src="images/thumb-sargent-thistles.webp" alt="" loading="lazy" width="520" height="408"></a>.<br>Art Institute of Chicago, public domain.</p>
+</div></footer>
+<script src="js/site.js" defer></script>
 </body>
 </html>
