@@ -369,3 +369,69 @@ textarea{min-height:96px;resize:vertical}
   .tier .ruled li:hover{background:var(--indigo-deep);color:var(--cream);border-left-color:var(--gold)}
 }
 @media (prefers-reduced-motion:no-preference){.tier .ruled li{transition:background-color .14s,color .14s,border-color .14s}}
+
+/* ---------- scorecard sheet: the full result on the page, saved as a one-page PDF (added 2026-11-15) ---------- */
+.sheet{border:var(--rule);background:var(--paper)}
+.sheet-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding:20px clamp(20px,3vw,36px);border-bottom:var(--rule)}
+.sheet-top .brand{font-size:22px}
+.sheet-top .mono{color:var(--ink-soft)}
+.sheet-main{display:grid;grid-template-columns:1fr 1.25fr}
+.sheet-main > div{padding:clamp(22px,3vw,40px);min-width:0}
+.sheet-main > div:first-child{border-right:var(--rule)}
+.sheet .label{color:var(--ink-soft);margin-bottom:12px}
+.sheet .area{font:500 clamp(30px,3.4vw,46px)/1.06 var(--serif);letter-spacing:-.02em}
+.sheet .score{font:400 clamp(80px,9vw,128px)/.86 var(--serif);letter-spacing:-.04em;color:var(--indigo);margin-top:22px}
+.sheet .score small{font:500 14px/1 var(--mono);letter-spacing:.1em;color:var(--ink-soft);margin-left:10px}
+.sheet .verdict{margin-top:20px;padding:14px 16px;border-left:4px solid var(--orange);background:rgba(210,70,10,.08);font-size:17px}
+.sheet .verdict b{font-weight:600}
+.scores{width:100%;border-collapse:collapse}
+.scores th{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-align:left;padding:0 8px 10px 0;border-bottom:var(--rule)}
+.scores td{padding:11px 8px 11px 0;border-bottom:var(--hair);font-size:16px;vertical-align:middle}
+.scores td.c{font:500 14px/1 var(--mono);width:52px}
+.scores td.s{font:500 22px/1 var(--serif);width:44px}
+.scores td.b{width:30%}
+.bar{height:10px;background:rgba(21,21,20,.10)}
+.bar i{display:block;height:100%;background:var(--indigo)}
+.scores tr.is-best td{font-weight:600}
+.scores tr.is-best .bar i{background:var(--orange)}
+.wins{border-top:var(--rule);padding:clamp(22px,3vw,40px)}
+.wins h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.015em;margin-bottom:22px}
+.wins ol{display:grid;grid-template-columns:1fr 1fr;border-left:var(--rule);border-top:var(--rule)}
+.wins li{border-right:var(--rule);border-bottom:var(--rule);padding:22px 24px;font-size:17px;line-height:1.5}
+.wins li span{display:block;font:400 54px/.9 var(--serif);color:var(--orange);margin-bottom:12px}
+.auto{border-top:var(--rule);padding:clamp(20px,3vw,32px) clamp(22px,3vw,40px)}
+.auto .ans{font:400 clamp(20px,1.9vw,24px)/1.35 var(--serif)}
+.sheet-foot{border-top:var(--rule);padding:18px clamp(20px,3vw,36px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--indigo-deep);color:var(--cream)}
+.sheet-foot .mono{color:var(--gold)}
+.after-sheet{margin-top:28px}
+.after-sheet .btn[disabled]{opacity:.45;cursor:not-allowed}
+@media (max-width:860px){.sheet-main{grid-template-columns:1fr}.sheet-main > div:first-child{border-right:0;border-bottom:var(--rule)}.wins ol{grid-template-columns:1fr}}
+@media (max-width:520px){.scores td.b,.scores th:last-child{display:none}}
+@media print{
+  @page{size:letter;margin:11mm}
+  html,body{background:#fff !important;height:auto !important}
+  header.top,footer.foot,.skip,.no-print,main > section:not(#result){display:none !important}
+  #result{padding:0 !important}
+  #result .wrap{padding:0 !important;max-width:none !important}
+  .sheet,.sheet *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sheet{break-inside:avoid}
+  .sheet-main{grid-template-columns:1fr 1.3fr !important}
+  .sheet-main > div{padding:20px 22px !important}
+  .sheet-main > div:first-child{border-right:var(--rule) !important;border-bottom:0 !important}
+  .sheet .area{font-size:27px}
+  .sheet .score{font-size:84px;margin-top:14px}
+  .sheet .verdict{font-size:14px;margin-top:14px}
+  .scores td{padding:7px 6px 7px 0;font-size:13px}
+  .scores td.s{font-size:18px}
+  .scores th:first-child,.scores td:first-child{width:36%}
+  .scores td.b,.scores th:last-child{display:table-cell !important}
+  .wins{padding:20px 22px}
+  .wins h3{font-size:22px;margin-bottom:14px}
+  .wins ol{grid-template-columns:1fr 1fr !important}
+  .wins li{padding:16px 18px;font-size:14px}
+  .wins li span{font-size:40px;margin-bottom:8px}
+  .auto{padding:16px 22px}
+  .auto .ans{font-size:18px}
+  .sheet-foot{padding:12px 22px;font-size:13px;display:block}
+  .sheet-foot .mono{display:block;margin-top:5px;font-size:11px}
+}

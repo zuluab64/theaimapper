@@ -58,39 +58,49 @@
   </form>
 </div></section>
 
-<section class="band band--tight"><div class="wrap">
-  <div class="head"><h2>Your result</h2></div>
-  <div class="result" aria-live="polite">
-    <div><p class="top-area is-empty" id="topArea">&ndash;</p><p class="top-score" id="topScore"></p></div>
-    <div>
-      <ul class="tiers" id="tiers">
-        <li><b>7 to 9: Prime target.</b> Fast, high return. Start here.</li>
-        <li><b>4 to 6: Strong candidate.</b> Worth a closer look.</li>
-        <li><b>1 to 3: Lower priority for now.</b> Revisit later.</li>
-      </ul>
-      <label class="field" for="outcome"><span><b>One more question:</b> What would change if this ran 80% on autopilot?</span><textarea id="outcome" rows="3"></textarea></label>
-    </div>
-  </div>
+<section class="band band--tight no-print"><div class="wrap">
+  <label class="field" for="outcome"><span><b>One more question:</b> What would change if this ran 80% on autopilot?</span><textarea id="outcome" rows="3"></textarea></label>
 </div></section>
 
-<section class="band band--deep"><div class="wrap split">
-  <h2>Get your results as a one-page PDF</h2>
+<section class="band band--tight" id="result"><div class="wrap">
+  <div class="head no-print"><h2>Your scorecard</h2></div>
+  <div class="sheet" aria-live="polite">
+    <div class="sheet-top"><span class="brand">The AIMapper</span><span class="mono">AI Opportunity Scorecard &nbsp;/&nbsp; <span id="today"></span></span></div>
+    <div class="sheet-main">
+      <div>
+        <p class="mono label">Your best place to start</p>
+        <p class="area" id="topArea">&ndash;</p>
+        <p class="score" id="topScore"></p>
+        <p class="verdict" id="topBand" hidden></p>
+      </div>
+      <div>
+        <table class="scores"><thead><tr><th scope="col">Area</th><th scope="col">Time</th><th scope="col">Repeat</th><th scope="col">Score</th><th scope="col"><span class="vh">Bar</span></th></tr></thead><tbody id="rows"></tbody></table>
+      </div>
+    </div>
+    <div class="wins" id="winsBox" hidden><h3 id="winsTitle"></h3><ol id="wins"></ol></div>
+    <div class="auto" id="autoBox" hidden><p class="mono label">What would change if this ran 80% on autopilot?</p><p class="ans" id="autoAns"></p></div>
+    <div class="sheet-foot"><span>Not sure your top score is the right first move? Book a free 20-minute call.</span><span class="mono">theaimapper.com/contact.html</span></div>
+  </div>
+  <div class="after-sheet no-print"><button class="btn btn-fill" type="button" id="saveBtn">Save as PDF</button></div>
+</div></section>
+
+<section class="band band--deep no-print"><div class="wrap split">
+  <h2>Want us to follow up?</h2>
   <div>
-    <p class="lead">Enter your email and we'll send your scorecard plus two quick wins for your top area.</p>
+    <p class="lead">Enter your email and we'll follow up on your result.</p>
     <form id="scForm" class="capture" novalidate>
       <label class="vh" for="email">Your email address</label>
       <input id="email" name="email" type="email" autocomplete="email" required>
-      <button id="sendBtn" type="submit" class="btn btn-fill">Email me my results</button>
+      <button id="sendBtn" type="submit" class="btn btn-fill">Send my result</button>
       <input type="hidden" name="top_area" value=""><input type="hidden" name="tier" value=""><input type="hidden" name="scores" value=""><input type="hidden" name="goal" value="">
       <input type="hidden" name="_subject" value="New AI Scorecard lead">
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="vh">
     </form>
     <p class="msg" id="sendMsg" role="status" aria-live="polite"></p>
-    <p class="alt">Prefer no email? <a href="AI-Opportunity-Scorecard.pdf" download>Download the blank printable PDF</a></p>
   </div>
 </div></section>
 
-<section class="band band--thistles on-dark"><div class="wrap split">
+<section class="band band--thistles on-dark no-print"><div class="wrap split">
   <h2>Not sure your top score is the right first move?</h2>
   <div>
     <p class="lead">Book a free 20-minute call and I'll go through your result with you. I'll tell you if AI fits, or if it doesn't yet.</p>
