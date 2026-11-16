@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    { "source": "/scorecard", "destination": "/scorecard.html", "permanent": false },
+    { "source": "/contact", "destination": "/contact.html", "permanent": false },
+    { "source": "/services", "destination": "/services.html", "permanent": false },
+    { "source": "/approach", "destination": "/approach.html", "permanent": false },
+    { "source": "/about", "destination": "/about.html", "permanent": false },
+    { "source": "/client-stories", "destination": "/client-stories.html", "permanent": false }
+  ],
   "headers": [
     { "source": "/fonts/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
     { "source": "/images/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }] },
