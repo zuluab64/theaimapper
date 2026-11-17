@@ -474,3 +474,6 @@ textarea{min-height:96px;resize:vertical}
 .prose p{font-size:18px;line-height:1.6;color:var(--ink-soft)}
 .prose a{color:var(--ink);text-underline-offset:4px;overflow-wrap:anywhere}
 .prose .sign{margin-top:36px;padding-top:24px;border-top:var(--rule);color:var(--ink)}
+
+/* ---------- sign-off line on the page-not-found page (added 2026-11-16) ---------- */
+.from{margin-top:28px;color:var(--indigo)}

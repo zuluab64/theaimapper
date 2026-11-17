@@ -14,6 +14,7 @@ one small script. No frameworks and no build step.
 | `scorecard.html` | Free AI Opportunity Scorecard |
 | `contact.html` | Contact |
 | `privacy.html` | Privacy (linked from the footer) |
+| `404.html` | Page not found (shown for any address that does not exist) |
 
 ## Folders
 - `css/style.css` - all styling
