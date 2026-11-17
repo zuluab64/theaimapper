@@ -439,10 +439,17 @@ textarea{min-height:96px;resize:vertical}
 /* ---------- audit fixes (added 2026-11-16) ---------- */
 /* The Book button stays in the top bar beside Menu on mid-size screens. */
 .top-call{display:none}
+@media (max-width:1240px){.nav-cta .btn-fill{display:none}}
 @media (min-width:720px) and (max-width:1240px){
   .top-call{display:inline-flex;margin-left:auto}
-  .nav-cta .btn-fill{display:none}
 }
+/* On phones the full label does not fit in the top bar, so the Book button is a bar fixed to the bottom of the screen. */
+@media (max-width:719px){
+  .top-call{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:9;min-height:56px;font-size:13px;
+    padding-bottom:env(safe-area-inset-bottom);border-top:var(--rule)}
+  body{padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+}
+@media print{.top-call{display:none !important}body{padding-bottom:0 !important}}
 /* FAQ answers use the full width on phones. */
 @media (max-width:600px){
   .faq .a{display:block;position:relative;z-index:1;background:var(--paper);padding:4px 0 32px}
@@ -450,4 +457,20 @@ textarea{min-height:96px;resize:vertical}
   .faq details[open]::after{bottom:auto;height:112px}
 }
 /* Footer links get a taller tap area. */
-.foot address a,.credit .art{display:inline-block;padding:3px 0}
+.foot address a{display:inline-block;padding:3px 0}
+/* The painting titles stay in the line of text, so the full stop sits right after the date. */
+.credit .art{padding:4px 0}
+
+/* ---------- source line under a claim (added 2026-11-16) ---------- */
+.source{margin-top:14px;font-size:13px;line-height:1.6;color:var(--ink-soft)}
+.on-dark .source{color:var(--cream-soft)}
+.source a{text-underline-offset:4px;display:inline-block;padding:3px 0}
+.hero .source{margin-top:14px}
+
+/* ---------- plain text page: Privacy (added 2026-11-16) ---------- */
+.prose{max-width:66ch}
+.prose h2{font-size:clamp(24px,2.1vw,29px);line-height:1.18;letter-spacing:-.01em;max-width:none;margin:36px 0 10px;padding-top:24px;border-top:var(--hair)}
+.prose h2:first-child{margin-top:0;border-top:var(--rule)}
+.prose p{font-size:18px;line-height:1.6;color:var(--ink-soft)}
+.prose a{color:var(--ink);text-underline-offset:4px;overflow-wrap:anywhere}
+.prose .sign{margin-top:36px;padding-top:24px;border-top:var(--rule);color:var(--ink)}

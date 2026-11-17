@@ -1,6 +1,6 @@
 # The AIMapper - theaimapper.com
 
-The marketing site for The AIMapper. Seven plain pages, one stylesheet,
+The marketing site for The AIMapper. Eight plain pages, one stylesheet,
 one small script. No frameworks and no build step.
 
 ## Pages
@@ -13,6 +13,7 @@ one small script. No frameworks and no build step.
 | `about.html` | About |
 | `scorecard.html` | Free AI Opportunity Scorecard |
 | `contact.html` | Contact |
+| `privacy.html` | Privacy (linked from the footer) |
 
 ## Folders
 - `css/style.css` - all styling

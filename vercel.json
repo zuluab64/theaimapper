@@ -6,6 +6,7 @@
     { "source": "/approach", "destination": "/approach.html", "permanent": true },
     { "source": "/about", "destination": "/about.html", "permanent": true },
     { "source": "/client-stories", "destination": "/client-stories.html", "permanent": true },
+    { "source": "/privacy", "destination": "/privacy.html", "permanent": true },
     { "source": "/AI-Opportunity-Scorecard.pdf", "destination": "/scorecard.html", "permanent": true }
   ],
   "headers": [
