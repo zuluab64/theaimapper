@@ -435,3 +435,19 @@ textarea{min-height:96px;resize:vertical}
   .sheet-foot{padding:12px 22px;font-size:13px;display:block}
   .sheet-foot .mono{display:block;margin-top:5px;font-size:11px}
 }
+
+/* ---------- audit fixes (added 2026-11-16) ---------- */
+/* The Book button stays in the top bar beside Menu on mid-size screens. */
+.top-call{display:none}
+@media (min-width:720px) and (max-width:1240px){
+  .top-call{display:inline-flex;margin-left:auto}
+  .nav-cta .btn-fill{display:none}
+}
+/* FAQ answers use the full width on phones. */
+@media (max-width:600px){
+  .faq .a{display:block;position:relative;z-index:1;background:var(--paper);padding:4px 0 32px}
+  .faq .a > div{max-width:none}
+  .faq details[open]::after{bottom:auto;height:112px}
+}
+/* Footer links get a taller tap area. */
+.foot address a,.credit .art{display:inline-block;padding:3px 0}

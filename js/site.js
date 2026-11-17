@@ -8,6 +8,14 @@
       var open = nav.classList.toggle("open");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
     });
+    // The Escape key closes the menu and returns focus to the button.
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("open")) {
+        nav.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+        btn.focus();
+      }
+    });
   }
 
   // ---- Scorecard ----
@@ -189,7 +197,7 @@
         scForm.reset();
       })
       .catch(function () {
-        msg.textContent = "Couldn't send just now. Please email hello@theaimapper.com.";
+        msg.textContent = "Couldn't send just now. Please email belinda_aber@theaimapper.com.";
         msg.className = "msg is-err";
       })
       .then(function () { send.disabled = false; });
