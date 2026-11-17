@@ -477,3 +477,10 @@ textarea{min-height:96px;resize:vertical}
 
 /* ---------- sign-off line on the page-not-found page (added 2026-11-16) ---------- */
 .from{margin-top:28px;color:var(--indigo)}
+
+/* ---------- Contact boxes: each box is as wide as its own text, so the email and LinkedIn addresses stay on one line (added 2026-11-16) ---------- */
+/* If a screen is too narrow, an address breaks only after the @ or after /in/, never mid-word. */
+.info a{overflow-wrap:break-word}
+@media (min-width:1010px){.info.g3{grid-template-columns:auto auto auto}}
+/* Below that width the three boxes stack, so each address has the full width. */
+@media (max-width:1009px){.info.g3{grid-template-columns:1fr}}
